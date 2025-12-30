@@ -28,9 +28,6 @@ while AI supports submission handling, tracking, and communication efficiency.  
                                 <span class="truncate">Submit Manuscript</span>
                                 <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
                             </button>
-                            <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white border border-[#dcdfe5] dark:bg-transparent dark:border-gray-700 text-[#111318] dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                <span class="truncate">Track Submission</span>
-                            </button>
                         </div>
                         <div class="flex items-center gap-4 text-sm text-[#636f88] dark:text-gray-500 mt-2">
                             <div class="flex items-center gap-1">
@@ -312,44 +309,27 @@ while AI supports submission handling, tracking, and communication efficiency.  
                     <div class="absolute top-0 right-0 p-4 opacity-10">
                         <span class="material-symbols-outlined text-[200px]">analytics</span>
                     </div>
-                    <!-- Mock UI for Dashboard -->
-                    <div class="flex flex-col gap-4 relative z-10">
-                        <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-4">
-                            <span class="font-bold text-sm text-gray-400">SUBMISSION ID: #88291</span>
-                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Under Review</span>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex gap-3 items-center">
-                                <div class="size-8 rounded-full bg-blue-100 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">check</span></div>
-                                <div class="flex-1">
-                                    <div class="h-2 bg-blue-100 rounded-full w-full">
-                                        <div class="h-2 bg-primary rounded-full w-full"></div>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">Submission Check - Complete</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 items-center">
-                                <div class="size-8 rounded-full bg-blue-100 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">check</span></div>
-                                <div class="flex-1">
-                                    <div class="h-2 bg-blue-100 rounded-full w-full">
-                                        <div class="h-2 bg-primary rounded-full w-full"></div>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">Plagiarism Scan (2%) - Passed</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 items-center">
-                                <div class="size-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 animate-pulse"><span class="material-symbols-outlined text-sm">hourglass_empty</span></div>
-                                <div class="flex-1">
-                                    <div class="h-2 bg-gray-100 dark:bg-gray-700 rounded-full w-full">
-                                        <div class="h-2 bg-amber-500 rounded-full w-[60%]"></div>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">Peer Review - In Progress (Reviewer 2/3)</p>
-                                </div>
+                    <!-- Chat with Mahesa -->
+                    <div class="flex flex-col items-center justify-center gap-6 relative z-10 h-full">
+                        <!-- Profile Image -->
+                        <div class="relative group">
+                            <div class="absolute -inset-2 bg-gradient-to-r from-primary to-blue-400 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                            <div class="relative size-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
+                                <img src="https://ui-avatars.com/api/?name=Mahesa&size=200&background=1754cf&color=fff&bold=true" alt="Mahesa" class="w-full h-full object-cover">
                             </div>
                         </div>
-                        <div class="mt-8 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                            <p class="text-sm font-medium text-primary">Estimated decision date: Oct 24, 2023</p>
+                        
+                        <!-- Chat Text -->
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-[#111318] dark:text-white mb-2">Chat with Mahesa</h3>
+                            <p class="text-[#636f88] text-sm max-w-xs">Get instant support for your submission queries and publishing questions</p>
                         </div>
+                        
+                        <!-- Chat Button -->
+                        <button class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
+                            <span class="material-symbols-outlined">chat</span>
+                            <span>Start Conversation</span>
+                        </button>
                     </div>
                 </div>
             </div>

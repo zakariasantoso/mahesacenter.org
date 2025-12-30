@@ -6,7 +6,7 @@
                 <div class="col-span-2 lg:col-span-2">
                     <div class="flex items-center gap-2 mb-4 text-[#111318] dark:text-white">
                         <span class="material-symbols-outlined text-primary">science</span>
-                        <h2 class="text-lg font-bold">TechScholar Press</h2>
+                        <h2 class="text-lg font-bold">Mahesa Global Publishing</h2>
                     </div>
                     <p class="text-[#636f88] text-sm max-w-xs mb-6">
                         Pioneering the future of academic publishing through automation, transparency, and speed.
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="border-t border-[#dcdfe5] dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-sm text-[#636f88]">© 2023 TechScholar Press. All rights reserved.</p>
+                <p class="text-sm text-[#636f88]">© 2025 Mahesa Global Publishing. All rights reserved.</p>
                 <div class="flex items-center gap-2">
                     <span class="size-2 rounded-full bg-green-500"></span>
                     <span class="text-sm text-[#636f88]">System Operational</span>
