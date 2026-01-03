@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+
+    # Skip if already hitting the public directory
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # Serve existing files/directories normally
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Push everything else into the public front controller (or assets)
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Block sensitive files from being served
+<FilesMatch "^(\.env|\.git|composer\.json|composer\.lock|artisan|phpunit\.xml|webpack\.mix\.js|package\.json)$">
+    Require all denied
+</FilesMatch>
