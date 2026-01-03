@@ -83,110 +83,49 @@ while AI supports submission handling, tracking, and communication efficiency.  
                     <h2 class="text-[#111318] dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em]">High-Impact Journals</h2>
                     <p class="text-[#636f88] mt-2">Leading research across technology, science, and economics.</p>
                 </div>
-                <a class="hidden sm:flex items-center text-primary font-bold hover:underline" href="#">
+                <a class="hidden sm:flex items-center text-primary font-bold hover:underline" href="{{ route('journals') }}">
                     View all journals <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
                 </a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
-                <!-- Journal Card 1 -->
-                <div class="group flex flex-col gap-3 bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#dcdfe5] dark:border-gray-800 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-                    <div class="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg relative overflow-hidden" data-alt="Abstract blue digital pattern cover art for AI journal" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKdhmDYp5g1tMMyg9pnDZ9TS5v8T86K48smeyLxPX6RyUdw6zPpQeL7ByagbYurMC2mL2PqFQVb389VQLQ1yxtQeLs43tjfUIR9I2zf-hPQ8xbYtn2w11LKqz7vuebLvFMKawadmDUVYhGy0gZ06QdyorRjz1w7zgrPVrmStNz9ly5DPB2YZZz8tRq6kfKuLu8UVbBK8VIGardSeMxtjRHFQJi7ZAejcypN-PDaw5uwHiGHhi0yf3dWZiCz2wDc1Y2XNDP6NDDc8uA");'>
-                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
-                            Open
-                        </div>
-                    </div>
-                    <div class="flex flex-col flex-1">
-                        <h3 class="text-[#111318] dark:text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Journal of AI Research</h3>
-                        <div class="mt-3 space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Impact Factor</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">4.5</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Avg Review</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">20 Days</span>
-                            </div>
-                        </div>
-                        <button class="mt-4 w-full py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-bold">
-                            Submit Paper
-                        </button>
-                    </div>
-                </div>
+                @php
+                    use Illuminate\Support\Str;
+                    $coverBase = 'https://mrc.kamibisa.online/storage/';
+                    $journals = $journals ?? [];
+                @endphp
 
-                <!-- Journal Card 2 -->
-                <div class="group flex flex-col gap-3 bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#dcdfe5] dark:border-gray-800 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-                    <div class="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg relative overflow-hidden" data-alt="Modern geometric architectural pattern for Economics journal cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsZGfFuPY5N1lhcPiOJwzcterFPQB81z7-Zcep8hGsNg7kj4ZtpzChlX1gk5-DviAG9aB_Tp9OHUspPI8zIzaNlY-s5t706BqcM_DwuuUvb_Ek4uQgLsVZ2Gy8Ns5odR6XjFcpGGxus4ANwmiRnY304dMMzJ-Qr80-374oTA-4-GpIafYyLGBB1JmK5xde_FnrIRATEF3NOxk2F9PJiRNjJlUXSMOki4_q2CPxn5sky5Wln660bVc7gDl2dTyB4w-_Kw-C5bq4w8gT");'>
-                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
-                            Open
-                        </div>
-                    </div>
-                    <div class="flex flex-col flex-1">
-                        <h3 class="text-[#111318] dark:text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Review of Modern Economics</h3>
-                        <div class="mt-3 space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Impact Factor</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">3.2</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Avg Review</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">25 Days</span>
-                            </div>
-                        </div>
-                        <button class="mt-4 w-full py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-bold">
-                            Submit Paper
-                        </button>
-                    </div>
-                </div>
+                @forelse($journals as $journal)
+                    @php
+                        $coverPath = $journal['journal_cover'] ?? null;
+                        $coverUrl = $coverPath
+                            ? (Str::startsWith($coverPath, ['http://', 'https://'])
+                                ? $coverPath
+                                : $coverBase . ltrim($coverPath, '/'))
+                            : 'https://placehold.co/400x300?text=Journal+Cover';
+                        $submitUrl = $journal['ojs_url'] ?? '#';
+                    @endphp
 
-                <!-- Journal Card 3 -->
-                <div class="group flex flex-col gap-3 bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#dcdfe5] dark:border-gray-800 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-                    <div class="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg relative overflow-hidden" data-alt="DNA strand visualization for Computational Biology journal cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCfxX-_lYLA1uHy-kbp1D_K4xEXiqxo9OYRyzr1uz5E-mfQY9q40tLSTPdoIAV3ZG5nLLwyWEaajImv5uPZXAJt-RTyMwQVMUySPZ6UpdhKfzlDsmDyFfHtSILDt9Tq4Ghs1n4uZYcIwmTUTt5tshNByCTxD9AikoBzEA-DmzTBErDEyyAerUSxs3__9-6MNI68Fcc0QQdUenMCL4m-ma6vF11_O6mP4dhtTigtvDQ3TsykMhdoTcuN0SfwHOwDRwdhqbHHLVKz9qMG");'>
-                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
-                            Open
+                    <div class="group flex flex-col gap-3 bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#dcdfe5] dark:border-gray-800 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+                        <div class="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg relative overflow-hidden" data-alt="{{ $journal['name'] ?? 'Journal cover' }}" style="background-image: url('{{ $coverUrl }}');">
+                            @if(($journal['is_active'] ?? false))
+                                <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
+                                    Open
+                                </div>
+                            @endif
+                        </div>
+                        <div class="flex flex-col flex-1">
+                            <h3 class="text-[#111318] dark:text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">{{ $journal['name'] ?? 'Untitled Journal' }}</h3>
+                            <p class="text-[#636f88] text-sm mt-2 line-clamp-2">{{ $journal['short_code'] ?? '—' }}</p>
+                            <a href="{{ $submitUrl }}" target="_blank" rel="noopener" class="mt-4 w-full py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-bold text-center">
+                                Submit Paper
+                            </a>
                         </div>
                     </div>
-                    <div class="flex flex-col flex-1">
-                        <h3 class="text-[#111318] dark:text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Computational Biology</h3>
-                        <div class="mt-3 space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Impact Factor</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">5.1</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Avg Review</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">18 Days</span>
-                            </div>
-                        </div>
-                        <button class="mt-4 w-full py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-bold">
-                            Submit Paper
-                        </button>
+                @empty
+                    <div class="col-span-1 sm:col-span-2 lg:col-span-4 text-center text-[#636f88] dark:text-gray-400 bg-white dark:bg-[#1a202c] rounded-xl border border-dashed border-[#dcdfe5] dark:border-gray-800 p-8">
+                        Journals are loading. Please refresh in a moment.
                     </div>
-                </div>
-
-                <!-- Journal Card 4 -->
-                <div class="group flex flex-col gap-3 bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#dcdfe5] dark:border-gray-800 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-                    <div class="w-full h-48 bg-center bg-no-repeat bg-cover rounded-lg relative overflow-hidden" data-alt="Global connectivity map for Global Health Tech journal cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLbYwoGeJubi5w6SFLBnLAZeurXCbzXc__Ch6LAR3K75rZQuxdqo3nXpUXlELJjx_uHrRMsiGtuzSGBYwKIu6hkcSzu8GSxE9QyzDoR1zEoVLaRQSb_QCZ29BL4CM-CdzmULuAdHdoODi42OPrD-NrK415qSgv9LTdyn7zJrcTLYbzMi60HhFX6cSiqLDj9I5yRd42diMYxrCszFUf8F_JBBc-68bXatqwFEHPniS06uY59RQApVb0h0v-jG18ItElRHQDCPb1UZ2e");'>
-                        <div class="absolute top-2 right-2 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
-                            Special Issue
-                        </div>
-                    </div>
-                    <div class="flex flex-col flex-1">
-                        <h3 class="text-[#111318] dark:text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Global Health Tech</h3>
-                        <div class="mt-3 space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Impact Factor</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">2.9</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-[#636f88]">Avg Review</span>
-                                <span class="font-mono font-bold text-[#111318] dark:text-white">22 Days</span>
-                            </div>
-                        </div>
-                        <button class="mt-4 w-full py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-bold">
-                            Submit Paper
-                        </button>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>

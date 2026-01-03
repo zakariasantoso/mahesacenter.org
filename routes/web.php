@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $journals = [];
+
+    try {
+        $response = Http::timeout(5)->get('https://mrc.kamibisa.online/api/journals');
+
+        if ($response->successful()) {
+            $journals = $response->json();
+        }
+    } catch (\Throwable $e) {
+        $journals = [];
+    }
+
+    return view('index', ['journals' => $journals]);
 });
 
 Route::get('/journals', function () {
-    return view('journals');
+    $journals = [];
+
+    try {
+        $response = Http::timeout(5)->get('https://mrc.kamibisa.online/api/journals');
+
+        if ($response->successful()) {
+            $journals = $response->json();
+        }
+    } catch (\Throwable $e) {
+        $journals = [];
+    }
+
+    return view('journals', ['journals' => $journals]);
 })->name('journals');
 
 Auth::routes();
