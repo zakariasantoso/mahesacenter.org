@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'TechScholar Press - Tech-Driven Academic Publishing')
+@section('title', 'Mahesa Research Center')
 
 @section('content')
 
