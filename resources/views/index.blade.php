@@ -306,7 +306,7 @@ while AI supports submission handling, tracking, and communication efficiency.  
 <script>
 // Lightweight LoA verification client
 document.addEventListener('DOMContentLoaded', () => {
-    const apiUrl = 'https://mrc.kamibisa.online/api/verify-by-number';
+    const apiUrl = 'https://mrc.kamibisa.online/api/loa/verify-by-number';
     const input = document.querySelector('[data-loa-input]');
     const button = document.querySelector('[data-loa-button]');
     const statusEl = document.querySelector('[data-loa-status]');
