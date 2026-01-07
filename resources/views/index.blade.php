@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
         right.className = 'space-y-0';
         addRow(right, 'Journal', data?.journal?.name);
         addRow(right, 'Short Code', data?.journal?.short_code);
-        addRow(right, 'Invoice Amount', data.apc_invoice_amount ? `$${data.apc_invoice_amount}` : '—');
+        addRow(right, 'Invoice Amount', data.apc_invoice_amount ? `IDR ${numberFormat(data.apc_invoice_amount)}` : '—');
         addRow(right, 'Invoice Date', formatDate(data.invoice_date));
 
         if (data.verification_link) {
@@ -462,6 +462,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const numberFormat = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
 
     button.addEventListener('click', verifyLoa);
