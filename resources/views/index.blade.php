@@ -55,20 +55,26 @@ while AI supports submission handling, tracking, and communication efficiency.  
 
 <!-- LoA Verification Banner (Tech Emphasis) -->
 <div class="w-full bg-primary py-12">
-    <div class="flex justify-center px-4 md:px-10 lg:px-40">
-        <div class="max-w-[1280px] w-full flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex flex-col text-white">
-                <h3 class="text-2xl font-bold flex items-center gap-2">
-                    <span class="material-symbols-outlined">verified_user</span>
-                    Verify Acceptance
-                </h3>
-                <p class="text-blue-100 opacity-90">Instant verification for institutional validation.</p>
+    <div class="flex justify-center px-4 md:px-10 lg:px-40 w-full">
+        <div class="max-w-[1280px] w-full flex flex-col gap-6">
+            <div class="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex flex-col text-white">
+                    <h3 class="text-2xl font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined">verified_user</span>
+                        Verify Acceptance
+                    </h3>
+                    <p class="text-blue-100 opacity-90">Instant validation for accepted submissions.</p>
+                </div>
+                <div class="flex w-full md:w-auto flex-1 max-w-lg gap-2 bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/20">
+                    <input data-loa-input class="w-full bg-transparent border-none text-white placeholder-blue-200 focus:ring-0 px-4 py-2 font-mono text-sm" placeholder="Enter LoA Reference ID (e.g. TSP-2023-8X9)" type="text" aria-label="Letter of Acceptance reference ID"/>
+                    <button type="button" data-loa-button class="bg-white text-primary px-6 py-2 rounded-lg font-bold hover:bg-blue-50 transition-colors whitespace-nowrap">
+                        Verify Now
+                    </button>
+                </div>
             </div>
-            <div class="flex w-full md:w-auto flex-1 max-w-lg gap-2 bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/20">
-                <input class="w-full bg-transparent border-none text-white placeholder-blue-200 focus:ring-0 px-4 py-2 font-mono text-sm" placeholder="Enter LoA Reference ID (e.g. TSP-2023-8X9)" type="text"/>
-                <button class="bg-white text-primary px-6 py-2 rounded-lg font-bold hover:bg-blue-50 transition-colors whitespace-nowrap">
-                    Verify Now
-                </button>
+            <div class="max-w-[1280px] w-full">
+                <p data-loa-status class="text-white/90 text-sm"></p>
+                <div data-loa-result class="mt-4 hidden"></div>
             </div>
         </div>
     </div>
@@ -295,3 +301,176 @@ while AI supports submission handling, tracking, and communication efficiency.  
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+// Lightweight LoA verification client
+document.addEventListener('DOMContentLoaded', () => {
+    const apiUrl = 'https://mrc.kamibisa.online/api/verify-by-number';
+    const input = document.querySelector('[data-loa-input]');
+    const button = document.querySelector('[data-loa-button]');
+    const statusEl = document.querySelector('[data-loa-status]');
+    const resultEl = document.querySelector('[data-loa-result]');
+
+    if (!input || !button || !statusEl || !resultEl) {
+        return;
+    }
+
+    const setStatus = (message, tone = 'muted') => {
+        if (!message) {
+            statusEl.textContent = '';
+            return;
+        }
+
+        const toneClass = tone === 'error' ? 'text-red-100' : tone === 'success' ? 'text-green-100' : 'text-white/90';
+        statusEl.className = `text-sm ${toneClass}`;
+        statusEl.textContent = message;
+    };
+
+    const setLoading = (isLoading) => {
+        button.disabled = isLoading;
+        button.textContent = isLoading ? 'Verifying...' : 'Verify Now';
+        button.classList.toggle('opacity-70', isLoading);
+        button.classList.toggle('cursor-not-allowed', isLoading);
+    };
+
+    const clearResult = () => {
+        resultEl.innerHTML = '';
+        resultEl.classList.add('hidden');
+    };
+
+    const formatDate = (value) => {
+        if (!value) return '—';
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return value;
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    };
+
+    const addRow = (parent, label, value) => {
+        const row = document.createElement('div');
+        row.className = 'flex justify-between items-center gap-3 py-2 border-b border-slate-100 last:border-b-0';
+
+        const labelEl = document.createElement('span');
+        labelEl.className = 'text-sm font-medium text-slate-600';
+        labelEl.textContent = label;
+
+        const valueEl = document.createElement('span');
+        valueEl.className = 'text-sm text-slate-900 text-right';
+        valueEl.textContent = value ?? '—';
+
+        row.append(labelEl, valueEl);
+        parent.appendChild(row);
+    };
+
+    const renderResult = (data) => {
+        resultEl.innerHTML = '';
+
+        const card = document.createElement('div');
+        card.className = 'bg-white text-[#111318] rounded-xl shadow-xl border border-white/40 overflow-hidden';
+
+        const header = document.createElement('div');
+        header.className = 'bg-primary text-white px-4 py-3 flex items-center justify-between';
+
+        const title = document.createElement('div');
+        title.className = 'text-sm font-bold tracking-wide uppercase';
+        title.textContent = `LoA ${data.loa_number || 'Reference'}`;
+
+        const statusBadge = document.createElement('span');
+        statusBadge.className = 'text-xs font-bold px-2 py-1 rounded bg-white/15 border border-white/20';
+        statusBadge.textContent = (data.status || 'unknown').toString().toUpperCase();
+
+        header.append(title, statusBadge);
+
+        const body = document.createElement('div');
+        body.className = 'p-4 grid grid-cols-1 md:grid-cols-2 gap-4';
+
+        const left = document.createElement('div');
+        left.className = 'space-y-0';
+        addRow(left, 'Author', data.author_name);
+        addRow(left, 'Email', data.author_email);
+        addRow(left, 'Article', data.article_title);
+        addRow(left, 'Article ID', data.article_id);
+        addRow(left, 'Issue', data.issue);
+        addRow(left, 'Volume', data.volume);
+        addRow(left, 'Publication Date', formatDate(data.publication_date));
+
+        const right = document.createElement('div');
+        right.className = 'space-y-0';
+        addRow(right, 'Journal', data?.journal?.name);
+        addRow(right, 'Short Code', data?.journal?.short_code);
+        addRow(right, 'Invoice Amount', data.apc_invoice_amount ? `$${data.apc_invoice_amount}` : '—');
+        addRow(right, 'Invoice Date', formatDate(data.invoice_date));
+
+        if (data.verification_link) {
+            const linkRow = document.createElement('div');
+            linkRow.className = 'flex justify-between items-center gap-3 py-2';
+
+            const label = document.createElement('span');
+            label.className = 'text-sm font-medium text-slate-600';
+            label.textContent = 'Verification Link';
+
+            const link = document.createElement('a');
+            link.className = 'text-sm font-bold text-primary hover:underline text-right break-all';
+            link.href = data.verification_link;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = data.verification_link;
+
+            linkRow.append(label, link);
+            right.appendChild(linkRow);
+        }
+
+        body.append(left, right);
+        card.append(header, body);
+        resultEl.appendChild(card);
+        resultEl.classList.remove('hidden');
+    };
+
+    const verifyLoa = async () => {
+        const loaNumber = input.value.trim();
+
+        if (!loaNumber) {
+            setStatus('Please enter a Letter of Acceptance reference ID.', 'error');
+            clearResult();
+            input.focus();
+            return;
+        }
+
+        setLoading(true);
+        setStatus('Verifying LoA reference...', 'muted');
+        clearResult();
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ loa_number: loaNumber }),
+            });
+
+            const payload = await response.json();
+
+            if (!payload.success) {
+                setStatus(payload.message || 'LoA not found. Please check the reference ID.', 'error');
+                return;
+            }
+
+            setStatus('LoA verified successfully.', 'success');
+            renderResult(payload.data || {});
+        } catch (error) {
+            setStatus('Unable to verify right now. Please try again in a moment.', 'error');
+            clearResult();
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    button.addEventListener('click', verifyLoa);
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            verifyLoa();
+        }
+    });
+});
+</script>
+@endpush
