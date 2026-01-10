@@ -26,24 +26,6 @@
                 use Illuminate\Support\Str;
                 $coverBase = 'https://mrc.kamibisa.online/storage/';
                 $journals = $journals ?? [];
-                
-                // Helper function to extract SINTA level from scope_description
-                $getSintaLevel = function($scopeDesc) {
-                    if (is_string($scopeDesc)) {
-                        $decoded = json_decode($scopeDesc, true);
-                        return $decoded['sinta']['level'] ?? null;
-                    }
-                    return $scopeDesc['sinta']['level'] ?? null;
-                };
-                
-                // Helper function to extract APC from scope_description
-                $getApcInfo = function($scopeDesc) {
-                    if (is_string($scopeDesc)) {
-                        $decoded = json_decode($scopeDesc, true);
-                        return $decoded['apc'] ?? null;
-                    }
-                    return $scopeDesc['apc'] ?? null;
-                };
             @endphp
 
             @forelse($journals as $journal)
@@ -82,28 +64,28 @@
                                     {{ $journal['name'] ?? 'Untitled Journal' }}
                                 </h2>
                                 <div class="flex flex-wrap items-center gap-4 text-sm text-[#636f88]">
-                                    @if(!empty($journal['sinta_level'] ?? $journal['sinta']['level'] ?? null))
+                                    {{-- @if(!empty($journal['short_code']))
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
+                                            <span><strong>Code:</strong> {{ $journal['short_code'] }}</span>
+                                        </div>
+                                    @endif --}}
+                                    @if(!empty($journal['akreditasi_level'] ?? null))
                                         <div class="flex items-center gap-1">
                                             <span class="material-symbols-outlined text-primary" style="font-size: 18px;">trending_up</span>
-                                            <span><strong>SINTA:</strong> {{ $journal['sinta_level'] ?? $journal['sinta']['level'] }}</span>
+                                            <span><strong>SINTA:</strong> {{ $journal['akreditasi_level'] }}</span>
                                         </div>
                                     @endif
                                     @if(!empty($journal['issn'] ?? null))
                                         <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">fingerprint</span>
                                             <span><strong>ISSN:</strong> {{ $journal['issn'] }}</span>
                                         </div>
                                     @endif
-                                    @if(!empty($journal['e_issn'] ?? null))
+                                    @if(!empty($journal['apc'] ?? null))
                                         <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
-                                            <span><strong>E-ISSN:</strong> {{ $journal['e_issn'] }}</span>
-                                        </div>
-                                    @endif
-                                    @if(!empty($journal['formatted_apc'] ?? $journal['apc_amount'] ?? null))
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">payments</span>
-                                            <span><strong>APC:</strong> {{ $journal['formatted_apc'] ?? ($journal['apc_currency'] ?? 'IDR') . ' ' . number_format($journal['apc_amount'], 0, ',', '.') }}</span>
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">paid</span>
+                                            <span><strong>APC:</strong> {{ number_format($journal['apc']) }} {{ $journal['apc_currency'] ?? 'IDR' }}</span>
                                         </div>
                                     @endif
                                 </div>
