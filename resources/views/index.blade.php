@@ -24,10 +24,10 @@
 All manuscripts are reviewed by expert reviewers,
 while AI supports submission handling, tracking, and communication efficiency.                        </div>
                         <div class="flex flex-wrap gap-3">
-                            <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
+                            <a href="{{ route('journals') }}" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
                                 <span class="truncate">Submit Manuscript</span>
                                 <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
-                            </button>
+                            </a>
                         </div>
                         <div class="flex items-center gap-4 text-sm text-[#636f88] dark:text-gray-500 mt-2">
                             <div class="flex items-center gap-1">

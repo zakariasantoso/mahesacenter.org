@@ -11,9 +11,6 @@
             <div class="hidden lg:flex flex-1 justify-end gap-8">
                 <div class="flex items-center gap-6 xl:gap-9">
                     <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="{{ route('journals') }}">Journals</a>
-                    <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">For Authors</a>
-                    <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Editors</a>
-                    <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">About Us</a>
                 </div>
 
             </div>
