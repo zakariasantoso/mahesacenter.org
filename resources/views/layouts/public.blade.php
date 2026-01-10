@@ -5,6 +5,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>@yield('title', 'Mahesa Research Center')</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -51,7 +54,7 @@
         @include('layouts.navbar')
         
         <!-- Main Content -->
-        <main>
+        <main class="pt-[60px]">
             @yield('content')
         </main>
         

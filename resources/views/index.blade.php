@@ -24,10 +24,10 @@
 All manuscripts are reviewed by expert reviewers,
 while AI supports submission handling, tracking, and communication efficiency.                        </div>
                         <div class="flex flex-wrap gap-3">
-                            <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
+                            <a href="{{ route('journals') }}" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
                                 <span class="truncate">Submit Manuscript</span>
                                 <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
-                            </button>
+                            </a>
                         </div>
                         <div class="flex items-center gap-4 text-sm text-[#636f88] dark:text-gray-500 mt-2">
                             <div class="flex items-center gap-1">
@@ -42,7 +42,7 @@ while AI supports submission handling, tracking, and communication efficiency.  
                     </div>
                     <div class="w-full flex-1 mt-10 lg:mt-0 relative group">
                         <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                        <div class="relative w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl shadow-2xl" data-alt="Abstract digital network visualization representing data flow and automation" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBehZE_L78h8_q6UjIdJa7faDIVaQtz0PM5dmi-euXdKb9uV-OGbGiomMUcJCxWX_CWizhOIxlfZiGl2c0uwgbdzZyldHWg-gdTrI49kLjvLABchft7H4rPZ2xnR72VfdOwQF3dcId6k0lY7l4nucpESwVfLTcmuE9NkbRMEDGUmXC7L7XUQ_X464PgYXmdtQ9_YgtJw0jkAK4vVQ1qnM3-VI5KOjZaxrSxjGIU7MBa7F9003L83Juztb9PSezgnm18cd2kB_DlwYL");'>
+                        <div class="relative w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl shadow-2xl" data-alt="Abstract digital network visualization representing data flow and automation" style='background-image: url("{{ asset('main-image.jpeg') }}");'>
                             <!-- Overlay for contrast if needed -->
                             <div class="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent rounded-xl"></div>
                         </div>
@@ -260,7 +260,7 @@ while AI supports submission handling, tracking, and communication efficiency.  
                         <div class="relative group">
                             <div class="absolute -inset-2 bg-gradient-to-r from-primary to-blue-400 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
                             <div class="relative size-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
-                                <img src="https://ui-avatars.com/api/?name=Mahesa&size=200&background=1754cf&color=fff&bold=true" alt="Mahesa" class="w-full h-full object-cover">
+                                <img src="{{ asset('cs.jpg') }}" alt="Mahesa" class="w-full h-full object-cover">
                             </div>
                         </div>
                         
@@ -271,10 +271,10 @@ while AI supports submission handling, tracking, and communication efficiency.  
                         </div>
                         
                         <!-- Chat Button -->
-                        <button class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
+                        <a href="https://wa.me/6285178531851" target="_blank" rel="noopener" class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
                             <span class="material-symbols-outlined">chat</span>
                             <span>Start Conversation</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

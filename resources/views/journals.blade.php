@@ -82,35 +82,28 @@
                                     {{ $journal['name'] ?? 'Untitled Journal' }}
                                 </h2>
                                 <div class="flex flex-wrap items-center gap-4 text-sm text-[#636f88]">
-                                    {{-- @if(!empty($journal['short_code']))
+                                    @if(!empty($journal['sinta_level'] ?? $journal['sinta']['level'] ?? null))
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">trending_up</span>
+                                            <span><strong>SINTA:</strong> {{ $journal['sinta_level'] ?? $journal['sinta']['level'] }}</span>
+                                        </div>
+                                    @endif
+                                    @if(!empty($journal['issn'] ?? null))
                                         <div class="flex items-center gap-1">
                                             <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
-                                            <span><strong>Code:</strong> {{ $journal['short_code'] }}</span>
-                                        </div>
-                                    @endif --}}
-                                    @if(!empty($journal['issn']))
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">fingerprint</span>
                                             <span><strong>ISSN:</strong> {{ $journal['issn'] }}</span>
                                         </div>
                                     @endif
-                                    @php
-                                        $sintaLevel = $getSintaLevel($journal['scope_description'] ?? null);
-                                        $akreditasiLevel = $journal['akreditasi_level'] ?? $sintaLevel;
-                                    @endphp
-                                    @if(!empty($akreditasiLevel))
+                                    @if(!empty($journal['e_issn'] ?? null))
                                         <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">trending_up</span>
-                                            <span><strong>SINTA:</strong> {{ $akreditasiLevel }}</span>
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
+                                            <span><strong>E-ISSN:</strong> {{ $journal['e_issn'] }}</span>
                                         </div>
                                     @endif
-                                    @php
-                                        $apcInfo = $getApcInfo($journal['scope_description'] ?? null);
-                                    @endphp
-                                    @if(!empty($apcInfo) && ($apcInfo['has_apc'] ?? false))
+                                    @if(!empty($journal['formatted_apc'] ?? $journal['apc_amount'] ?? null))
                                         <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">paid</span>
-                                            <span><strong>APC:</strong> {{ number_format($apcInfo['publication_fee'] ?? 0) }} {{ $apcInfo['currency'] ?? 'IDR' }}</span>
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">payments</span>
+                                            <span><strong>APC:</strong> {{ $journal['formatted_apc'] ?? ($journal['apc_currency'] ?? 'IDR') . ' ' . number_format($journal['apc_amount'], 0, ',', '.') }}</span>
                                         </div>
                                     @endif
                                 </div>
