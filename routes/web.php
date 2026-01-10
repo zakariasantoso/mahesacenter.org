@@ -38,6 +38,8 @@ Route::get('/journals', function () {
 
         if ($response->successful()) {
             $journals = $response->json();
+            // Debug: uncomment line below to see journal data structure
+            // dd($journals);
         }
     } catch (\Throwable $e) {
         $journals = [];

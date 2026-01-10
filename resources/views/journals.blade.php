@@ -64,16 +64,28 @@
                                     {{ $journal['name'] ?? 'Untitled Journal' }}
                                 </h2>
                                 <div class="flex flex-wrap items-center gap-4 text-sm text-[#636f88]">
-                                    @if(!empty($journal['short_code']))
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
-                                            <span><strong>Code:</strong> {{ $journal['short_code'] }}</span>
-                                        </div>
-                                    @endif
-                                    @if(!empty($journal['sinta']['level'] ?? null))
+                                    @if(!empty($journal['sinta_level'] ?? $journal['sinta']['level'] ?? null))
                                         <div class="flex items-center gap-1">
                                             <span class="material-symbols-outlined text-primary" style="font-size: 18px;">trending_up</span>
-                                            <span><strong>SINTA:</strong> {{ $journal['sinta']['level'] }}</span>
+                                            <span><strong>SINTA:</strong> {{ $journal['sinta_level'] ?? $journal['sinta']['level'] }}</span>
+                                        </div>
+                                    @endif
+                                    @if(!empty($journal['issn'] ?? null))
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
+                                            <span><strong>ISSN:</strong> {{ $journal['issn'] }}</span>
+                                        </div>
+                                    @endif
+                                    @if(!empty($journal['e_issn'] ?? null))
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">tag</span>
+                                            <span><strong>E-ISSN:</strong> {{ $journal['e_issn'] }}</span>
+                                        </div>
+                                    @endif
+                                    @if(!empty($journal['formatted_apc'] ?? $journal['apc_amount'] ?? null))
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-primary" style="font-size: 18px;">payments</span>
+                                            <span><strong>APC:</strong> {{ $journal['formatted_apc'] ?? ($journal['apc_currency'] ?? 'IDR') . ' ' . number_format($journal['apc_amount'], 0, ',', '.') }}</span>
                                         </div>
                                     @endif
                                 </div>
